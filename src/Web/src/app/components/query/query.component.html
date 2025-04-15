@@ -1,0 +1,84 @@
+<!-- Query component chat interface -->
+<div class="flex flex-col h-full">
+  <!-- Chat Messages Area -->
+  <div #messagesContainer class="flex-1 overflow-y-auto p-4 space-y-6">
+    @if (messages.length === 0) {
+      <div class="flex items-center justify-center h-full">
+        <div class="text-center text-gray-500 dark:text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          <p class="text-lg font-medium">No messages yet</p>
+          <p class="mt-1">Ask any question to get started...</p>
+        </div>
+      </div>
+    }
+
+    @for (message of messages; track message.id) {
+      <div [ngClass]="{'flex justify-end': message.sender === 'user', 'flex justify-start': message.sender === 'system'}">
+        <div 
+          [ngClass]="{
+            'bg-accent text-white rounded-2xl rounded-br-2xl rounded-bl-2xl rounded-tr-2xl rounded-tl-2xl max-w-[80%] inline-block w-auto': message.sender === 'user',
+            'bg-gray-200 dark:bg-gray-700 dark:text-white text-gray-800 rounded-2xl max-w-[80%] inline-block w-auto': message.sender === 'system'
+          }"
+          class="px-4 py-3 shadow-sm"
+        >
+          <div [innerHTML]="message.content | formatMessageContent"></div>
+          <div class="text-xs opacity-70 mt-1 text-right">
+            {{ message.timestamp | date:'shortTime' }}
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Loading indicator -->
+    @if (isLoading) {
+      <div class="flex justify-start">
+        <div class="bg-gray-200 dark:bg-gray-700 dark:text-white text-gray-800 rounded-2xl px-4 py-3 shadow-sm">
+          <div class="flex space-x-2">
+            <div class="h-2 w-2 bg-gray-500 dark:bg-gray-300 rounded-full animate-bounce"></div>
+            <div class="h-2 w-2 bg-gray-500 dark:bg-gray-300 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="h-2 w-2 bg-gray-500 dark:bg-gray-300 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Message Input Area -->
+  <div class="border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
+    <div class="flex items-center">
+      <!-- Clear chat button -->
+      <button 
+        class="p-2 rounded-full text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent-light hover:bg-gray-100 dark:hover:bg-gray-700 mr-2 flex items-center transition-colors duration-200" 
+        title="Clear chat"
+        [class.opacity-50]="messages.length === 0"
+        [disabled]="messages.length === 0"
+        (click)="clearChat()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </button>
+      
+      <input 
+        type="text" 
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()"
+        placeholder="Type your question here..." 
+        class="flex-1 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+      />
+      
+      <button 
+        class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-r-md transition-colors duration-200"
+        [disabled]="isLoading || !newMessage.trim()"
+        (click)="sendMessage()">
+        <div class="flex items-center">
+          <span class="mr-1">Send</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

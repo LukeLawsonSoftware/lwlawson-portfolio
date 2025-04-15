@@ -1,0 +1,15 @@
+<div class="markdown-container" [ngClass]="{ 'dark-theme': isDarkTheme }">
+  <!-- Render markdown from a string input -->
+  <markdown
+    *ngIf="markdownContent"
+    [data]="markdownContent"
+    class="markdown-body"
+  ></markdown>
+
+  <!-- Render markdown from a file path -->
+  <markdown
+    *ngIf="markdownPath && !markdownContent"
+    [src]="markdownPath"
+    class="markdown-body"
+  ></markdown>
+</div>

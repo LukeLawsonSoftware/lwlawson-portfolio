@@ -1,0 +1,185 @@
+/* Markdown container styling */
+.markdown-container {
+  background-color: #ffffff;
+  color: #333333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1.6;
+}
+
+/* Dark theme styling */
+.markdown-container.dark-theme {
+  background-color: #1f2937; /* Matching the app dark background */
+  color: #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Common markdown elements styling */
+:host ::ng-deep .markdown-body h1, 
+:host ::ng-deep .markdown-body h2, 
+:host ::ng-deep .markdown-body h3, 
+:host ::ng-deep .markdown-body h4, 
+:host ::ng-deep .markdown-body h5, 
+:host ::ng-deep .markdown-body h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+:host ::ng-deep .markdown-body h1 { font-size: 2em; margin-top: 0.67em; color: inherit; }
+:host ::ng-deep .markdown-body h2 { font-size: 1.5em; margin-top: 0.83em; color: inherit; }
+:host ::ng-deep .markdown-body h3 { font-size: 1.25em; margin-top: 1em; color: inherit; }
+:host ::ng-deep .markdown-body h4 { font-size: 1.1em; color: inherit; }
+:host ::ng-deep .markdown-body h5 { font-size: 0.9em; color: inherit; }
+:host ::ng-deep .markdown-body h6 { font-size: 0.8em; color: inherit; }
+
+.dark-theme :host ::ng-deep .markdown-body h1,
+.dark-theme :host ::ng-deep .markdown-body h2,
+.dark-theme :host ::ng-deep .markdown-body h3,
+.dark-theme :host ::ng-deep .markdown-body h4,
+.dark-theme :host ::ng-deep .markdown-body h5,
+.dark-theme :host ::ng-deep .markdown-body h6 {
+  color: #e5e7eb;
+}
+
+:host ::ng-deep .markdown-body p {
+  margin-bottom: 1em;
+}
+
+:host ::ng-deep .markdown-body a {
+  color: #8b5cf6; /* accent color */
+  text-decoration: none;
+}
+
+:host ::ng-deep .markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.dark-theme :host ::ng-deep .markdown-body a {
+  color: #a78bfa; /* accent-light color */
+}
+
+/* Code blocks */
+:host ::ng-deep .markdown-body code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.dark-theme :host ::ng-deep .markdown-body code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:host ::ng-deep .markdown-body pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1em;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.dark-theme :host ::ng-deep .markdown-body pre {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+:host ::ng-deep .markdown-body pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.9em;
+}
+
+/* Lists */
+:host ::ng-deep .markdown-body ul, 
+:host ::ng-deep .markdown-body ol {
+  padding-left: 2em;
+  margin-bottom: 1em;
+  display: block; /* Ensure proper display */
+  list-style-position: outside;
+}
+
+:host ::ng-deep .markdown-body ul {
+  list-style-type: disc; /* Explicit bullet points for unordered lists */
+}
+
+:host ::ng-deep .markdown-body ol {
+  list-style-type: decimal; /* Explicit numbering for ordered lists */
+}
+
+:host ::ng-deep .markdown-body ul ul {
+  list-style-type: circle; /* Second level bullets */
+}
+
+:host ::ng-deep .markdown-body ul ul ul {
+  list-style-type: square; /* Third level bullets */
+}
+
+:host ::ng-deep .markdown-body li {
+  margin-bottom: 0.5em;
+  display: list-item; /* Explicit display as list item */
+}
+
+:host ::ng-deep .markdown-body li p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Fix for bullet point spacing */
+:host ::ng-deep .markdown-body li + li {
+  margin-top: 0.25em;
+}
+
+/* Blockquotes */
+:host ::ng-deep .markdown-body blockquote {
+  border-left: 4px solid #8b5cf6; /* accent color */
+  padding-left: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: #4b5563; /* gray-600 */
+}
+
+.dark-theme :host ::ng-deep .markdown-body blockquote {
+  border-left-color: #a78bfa; /* accent-light color */
+  color: #9ca3af; /* gray-400 */
+}
+
+/* Tables */
+:host ::ng-deep .markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+:host ::ng-deep .markdown-body table th,
+:host ::ng-deep .markdown-body table td {
+  border: 1px solid #e5e7eb; /* gray-200 */
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+.dark-theme :host ::ng-deep .markdown-body table th,
+.dark-theme :host ::ng-deep .markdown-body table td {
+  border-color: #374151; /* gray-700 */
+}
+
+:host ::ng-deep .markdown-body table th {
+  background-color: #f9fafb; /* gray-50 */
+  font-weight: 600;
+}
+
+.dark-theme :host ::ng-deep .markdown-body table th {
+  background-color: #374151; /* gray-700 */
+}
+
+/* Images */
+:host ::ng-deep .markdown-body img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin: 1em 0;
+}
